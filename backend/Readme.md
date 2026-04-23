@@ -1,42 +1,46 @@
-# Expense Tracker Backend
 
-A minimal Node.js + Express + SQLite backend for an expense tracker.
+---
 
-## Why SQLite?
+## `backend/README.md`
 
-I chose SQLite because it provides real persistence with almost no setup, while still supporting constraints and transactions. That makes it a good fit for a small assignment that still needs production-like correctness.
+```md
+# ⚙️ Expensio Backend
 
-## Key design decisions
+Backend API for Expensio Expense Tracker.
 
-- **Money is stored as integer paise** (`amount_paise`) instead of floating point to avoid precision issues.
-- **Idempotent POST /expenses** is implemented using an `Idempotency-Key` header plus a stored request hash.
-- **SQLite transaction** is used during create flow so retries do not create duplicate expenses.
-- **Date** is stored as `YYYY-MM-DD` for predictable sorting/filtering.
-- API returns `amount` and `total` as decimal strings like `"123.45"`.
+Built with Node.js + Express + SQLite.
 
-## Trade-offs
+---
 
-- Authentication is not included.
-- Category values are free-text instead of normalized into a separate table.
-- The idempotency store does not expire old keys yet.
-- SQLite is enough for this exercise, but for larger scale I would likely move to PostgreSQL.
+# 🚀 Features
 
-## Endpoints
+- POST /expenses
+- GET /expenses
+- DELETE /expenses
+- SQLite database
+- Transaction-safe inserts
+- Validation
+- Error handling
+- Retry-safe requests using Idempotency-Key
 
-### POST /expenses
+---
 
-Headers:
+# 🛠 Tech Stack
 
-- `Content-Type: application/json`
-- `Idempotency-Key: any-unique-client-generated-value`
+- Node.js
+- Express.js
+- SQLite
 
-Body:
+---
 
-```json
-{
-  "amount": "250.50",
-  "category": "Food",
-  "description": "Lunch",
-  "date": "2026-04-23"
-}
+# 📁 Folder Structure
 
+```text
+backend/
+│── src/
+│   ├── routes/
+│   ├── controllers/
+│   ├── services/
+│   ├── db/
+│   └── app.js
+│── package.json
